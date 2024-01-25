@@ -1,17 +1,24 @@
 package com.ivan.storedemo.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.ivan.storedemo.models.Product;
+import com.ivan.storedemo.repositories.ProductRepository;
 
 import jakarta.annotation.PostConstruct;
 
 
 @Service
 public class ProductService {
+
+  @Autowired
+  private ProductRepository productRepository;
+
   private static final ArrayList<Product> products = new  ArrayList<>();
 
   // static {
@@ -27,13 +34,14 @@ public class ProductService {
 
   @PostConstruct
   public void init(){
-    products.add(new Product("huevos", 100));
-    products.add(new Product("leche", 50));
-    products.add(new Product("cereal", 60));
-    products.add(new Product(productName, Double.parseDouble(productPrice)));
+    // products.add(new Product("huevos", 100));
+    // products.add(new Product("leche", 50));
+    // products.add(new Product("cereal", 60));
+    // products.add(new Product(productName, Double.parseDouble(productPrice)));
   }
 
-  public ArrayList<Product> getAllProducts() {
+  public List<Product> getAllProducts() {
+    List<Product> products = productRepository.findAll();
     return products;
   }
 
