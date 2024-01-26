@@ -46,6 +46,7 @@ public class ProductService {
   }
 
   public Product getProduct(String name) {
+    
     Product productMatch = products
       .stream()
       .filter( 
@@ -53,6 +54,12 @@ public class ProductService {
       .findFirst()
       .get();
     return productMatch;
+  }
+
+  public List<Product> getProductsByName(String name){
+    //test with criteria builder with JPASpecificationExecutor
+    List<Product> products = productRepository.findAll((product, cq, cb) -> cb.equal(product.get("name"), name));
+    return products;
   }
 
 }
